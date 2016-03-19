@@ -2,7 +2,7 @@ module GoJek
   ITERATIONS = 50
 
   class Runner
-    attr_reader :input
+    attr_reader :input, :initial_state
 
     def initialize(file_name: 'seed.txt')
       @input = File
@@ -11,20 +11,22 @@ module GoJek
         .map(&:chomp)
     end
 
-    def initial_state
+    def parse
       array = input.map do |line|
         line
           .split
           .map { |c| c == "1" ? true : false }
       end
 
-      array.each_with_index.flat_map do |a, i|
-        a.each_with_index.map do |value, k|
-          next unless value
-          [i, k]
+      @initial_state = {}
+
+      array.each_with_index do |a, i|
+        a.each_with_index do |value, k|
+          @initial_state[[i, k]] = value
         end
       end
-        .compact
+
+      @initial_state.reject! { |k, v| v == false }
     end
 
     def run

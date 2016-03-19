@@ -14,18 +14,19 @@ module GoJek
         "0 0 0 0"
       ]
 
-      @parsed = [
-        [1, 1],
-        [1, 2],
-        [2, 1],
-        [2, 2]
-      ]
+      @parsed = {
+        [1, 1]=>true,
+        [1, 2]=>true,
+        [2, 1]=>true,
+        [2, 2]=>true,
+      }
 
       @next_state = @parsed
       @runner = Runner.new(file_name: 'seed.txt')
     end
 
     def test_parse
+      @runner.parse
       assert_equal @runner.initial_state, @parsed
     end
 
