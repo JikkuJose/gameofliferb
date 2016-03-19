@@ -22,7 +22,7 @@ module GoJek
 
       array.each_with_index do |a, i|
         a.each_with_index do |value, k|
-          @initial_state[[i, k]] = value
+          @initial_state[[i, k]] = value if value
         end
       end
 

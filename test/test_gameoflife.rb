@@ -15,22 +15,10 @@ module GoJek
       ]
 
       @parsed = {
-        [0, 0]=>false,
-        [0, 1]=>false,
-        [0, 2]=>false,
-        [0, 3]=>false,
-        [1, 0]=>false,
         [1, 1]=>true,
         [1, 2]=>true,
-        [1, 3]=>false,
-        [2, 0]=>false,
         [2, 1]=>true,
-        [2, 2]=>true,
-        [2, 3]=>false,
-        [3, 0]=>false,
-        [3, 1]=>false,
-        [3, 2]=>false,
-        [3, 3]=>false
+        [2, 2]=>true
       }
 
       @next_state = @parsed
