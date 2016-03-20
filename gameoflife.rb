@@ -125,3 +125,5 @@ module GoJek
     end
   end
 end
+
+GoJek::Runner.new(file_name: ARGV[0]).run
