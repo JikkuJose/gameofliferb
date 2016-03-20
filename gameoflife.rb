@@ -48,6 +48,10 @@ module GoJek
     end
 
     def print
+      if @output.state == {}
+        puts "00\n00"
+        return
+      end
       row_min = @output.state.keys.map { |row, _| row }.min
       column_min = @output.state.keys.map { |_, column| column }.min
 
@@ -100,7 +104,7 @@ module GoJek
           end
         end
 
-        self.class.new(@new_state.reject! { |_, v| v == false })
+        self.class.new(@new_state.reject! { |_, v| v == false } || {})
       end
 
       def ==(other)
