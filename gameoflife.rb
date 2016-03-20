@@ -1,3 +1,5 @@
+require 'pry'
+
 module GoJek
   ITERATIONS = 50
 
@@ -9,20 +11,46 @@ module GoJek
         .open(file_name)
         .readlines
         .map(&:chomp)
+
+      @initial_state = {}
+      @initial_state.default = false
+    end
+
+    def parse
+      array = @input.map do |line|
+        line
+          .split
+          .map { |c| c == "1" ? true : false }
+      end
+
+      array.each_with_index do |row, i|
+        row.each_with_index do |value, k|
+          @initial_state[[i, k]] = value
+        end
+      end
+
+      @initial_state.reject! do |_, value|
+        value == false
+      end
     end
 
     def run
       parse
 
-      ITERATIONS.times.reduce(initial_state) do |acc, index|
-        GameOfLife.new(acc).next
+      ITERATIONS
+        .times
+        .inject(GameOfLife.new(initial_state)) do |gen, index|
+        gen.next
       end
     end
   end
 
   class GameOfLife
+    attr_reader :state
+
     def initialize(state)
       @state = state
+      # binding.pry
       @state.default = false
 
       @new_state = {}
@@ -43,7 +71,11 @@ module GoJek
         end
       end
 
-      @new_state.reject! { |_, v| v == false }
+      self.class.new(@new_state.reject! { |_, v| v == false })
+    end
+
+    def ==(other)
+      @state == other.state
     end
 
     def surroundings(c)

@@ -25,12 +25,24 @@ module GoJek
       @runner = Runner.new(file_name: 'seed.txt')
     end
 
+    def test_itteration
+      r = GoJek::Runner.new
+      r.run
+    end
+
+    def test_parse
+      r = Runner.new
+      r.parse
+
+      assert_equal @parsed, r.initial_state
+    end
+
     def test_read
       assert_equal @runner.input, @sample_input
     end
 
     def test_gol
-      assert_equal GameOfLife.new(@parsed).next, @next_state
+      assert_equal GameOfLife.new(@parsed).next, GameOfLife.new(@next_state)
     end
   end
 end
