@@ -25,11 +25,6 @@ module GoJek
       @runner = Runner.new(file_name: 'seed.txt')
     end
 
-    def test_parse
-      @runner.parse
-      assert_equal @runner.initial_state, @parsed
-    end
-
     def test_read
       assert_equal @runner.input, @sample_input
     end
